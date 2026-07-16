@@ -1,15 +1,10 @@
-# 🌍 TerraWeek Challenge – Day 2
+# 🧩 TerraWeek – Day 2  -  HCL Deep Dive: Variables, Types & Expressions
 
-**#TrainWithShubham #TerraWeekChallenge #Terraform #DevOps**
+**#TrainWithShubham #TerraWeekChallenge**
 ----
 
-# 🧩 HCL Deep Dive: Variables, Types & Expressions
-
 <p align="center">
-  <img src="https://img.shields.io/badge/Terraform-v1.13+-623CE4?style=for-the-badge&logo=terraform&logoColor=white">
-  <img src="https://img.shields.io/badge/Docker-Enabled-2496ED?style=for-the-badge&logo=docker&logoColor=white">
   <img src="https://img.shields.io/badge/Challenge-TrainWithShubham-success?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge">
 </p>
 
 ---
@@ -51,15 +46,15 @@ To reinforce these concepts, I built a practical project using the **Docker Prov
 ```
 TerraWeek-Day2/
 │
-├── provider.tf
-├── variables.tf
-├── terraform.tfvars
-├── main.tf
-├── outputs.tf
-├── README.md
+|---code/
+├── |-provider.tf
+├   |-variables.tf
+├── |-terraform.tfvars
+├── |-main.tf
+├── |-outputs.tf
+├─  README.md
 │
-└── screenshots/
-    ├── project-structure.png
+└── images/
     ├── variables.png
     ├── main.png
     ├── outputs.png
@@ -72,6 +67,7 @@ TerraWeek-Day2/
 ```
 
 ---
+**Task 1: Master HCL Syntax**
 
 # 📌 HCL Fundamentals
 
@@ -87,7 +83,8 @@ Example:
 
 ```hcl
 resource "docker_container" "web" {
-
+  name  = "nginx-container"
+  image = "nginx:latest"
 }
 ```
 
@@ -102,7 +99,7 @@ A block consists of
 
 ## 2️⃣ Arguments
 
-Arguments configure a block.
+Arguments configure a block. ( key = pair )
 
 Example
 
@@ -273,26 +270,38 @@ variable "docker_password" {
 
 ---
 
-# 🧠 Local Values
+# 🧩 Task 3: Locals, Outputs & Functions
 
-Local values help avoid duplicate code.
+This task focused on making Terraform configurations more reusable and dynamic by using **Local Values**, **Outputs**, and **Built-in Functions**.
+
+---
+
+## 📌 Local Values
+
+Terraform **locals** allow us to compute values once and reuse them throughout the configuration, reducing duplication and improving readability.
+
+### Local Configuration
 
 ```hcl
 locals {
 
+  # Prefix based on deployment environment
   name_prefix = "tws-${var.environment}"
 
+  # Conditional Expression
   instance_size = var.environment == "prod" ? "large" : "small"
 
+  # Merge default labels with user-defined labels
   common_labels = merge(
     {
-      project = "TerraWeek"
+      project     = "TerraWeek"
       environment = var.environment
-      managed_by = "Terraform"
+      managed_by  = "Terraform"
     },
     var.extra_labels
   )
 
+  # Convert developer names to uppercase
   uppercase_developers = [
     for dev in var.developer : upper(dev)
   ]
@@ -300,14 +309,226 @@ locals {
 }
 ```
 
-### Concepts Used
+### Concepts Demonstrated
 
-- String Interpolation
-- merge()
-- upper()
-- Conditional Expression
-- For Expression
+- ✅ String Interpolation
+- ✅ Conditional Expressions
+- ✅ `merge()` Function
+- ✅ `upper()` Function
+- ✅ For Expressions
+- ✅ Reusable Local Values
 
+---
+
+## 📤 Terraform Outputs
+
+Outputs display useful information after Terraform successfully provisions infrastructure.
+
+### outputs.tf
+
+```hcl
+output "container_name" {
+  description = "Name of the running Docker container"
+  value       = docker_container.web.name
+}
+
+output "container_id" {
+  description = "Docker Container ID"
+  value       = docker_container.web.id
+}
+
+output "image_name" {
+  description = "Pulled Docker image"
+  value       = docker_image.nginx.name
+}
+
+output "instance_size" {
+  description = "Computed instance size"
+  value       = local.instance_size
+}
+
+output "developers" {
+  description = "Developer names in uppercase"
+  value       = local.uppercase_developers
+}
+
+output "labels" {
+  description = "Merged labels"
+  value       = local.common_labels
+}
+
+output "application_url" {
+  description = "Application URL"
+  value       = format("http://localhost:%d", var.external_port)
+}
+```
+
+After running:
+
+```bash
+terraform output
+```
+
+Terraform displays useful information such as:
+
+- Container Name
+- Container ID
+- Docker Image
+- Instance Size
+- Labels
+- Developers List
+- Application URL
+
+---
+
+# 🧮 Terraform Built-in Functions
+
+Terraform provides many built-in functions that simplify data manipulation.
+
+For this task, I explored the following functions using **terraform console**.
+
+### Start Terraform Console
+
+```bash
+terraform console
+```
+
+---
+
+## 1️⃣ upper()
+
+Converts a string to uppercase.
+
+```hcl
+> upper("terraweek")
+```
+
+Output
+
+```text
+"TERRAWEEK"
+```
+
+---
+
+## 2️⃣ merge()
+
+Combines multiple maps into one.
+
+```hcl
+> merge({a=1}, {b=2})
+```
+
+Output
+
+```text
+{
+  "a" = 1
+  "b" = 2
+}
+```
+
+---
+
+## 3️⃣ join()
+
+Joins list elements into a single string.
+
+```hcl
+> join("-", ["tws", "terraweek", "2026"])
+```
+
+Output
+
+```text
+"tws-terraweek-2026"
+```
+
+---
+
+## 4️⃣ length()
+
+Returns the number of elements.
+
+```hcl
+> length(["Docker", "Terraform", "AWS"])
+```
+
+Output
+
+```text
+3
+```
+
+---
+
+## 5️⃣ format()
+
+Formats a string using placeholders.
+
+```hcl
+> format("http://localhost:%d", 8080)
+```
+
+Output
+
+```text
+"http://localhost:8080"
+```
+
+---
+
+# 📸 Screenshot Required
+
+### 📍 Terraform Console
+
+Capture a screenshot showing the execution of the following commands:
+
+```bash
+terraform console
+
+> upper("terraweek")
+
+> merge({a=1}, {b=2})
+
+> join("-", ["tws", "terraweek", "2026"])
+
+> length(["Docker","Terraform","AWS"])
+
+> format("http://localhost:%d",8080)
+```
+
+Save the screenshot as:
+
+```
+screenshots/terraform-console.png
+```
+
+---
+
+### 📍 Terraform Output
+
+Run:
+
+```bash
+terraform output
+```
+
+Capture the output displaying:
+
+- Container Name
+- Container ID
+- Image Name
+- Instance Size
+- Labels
+- Developers
+- Application URL
+
+Save the screenshot as:
+
+```
+screenshots/terraform-output.png
+```
 ---
 
 # 🐳 Docker Provider Project
