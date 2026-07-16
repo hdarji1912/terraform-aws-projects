@@ -44,7 +44,7 @@ Terraform is an open-source Infrastructure as Code (IaC) tool developed by Hashi
 
 ---
 
-# 📌 Terraform vs Other IaC Tools
+# 🏗️ Terraform vs Other IaC Tools
 
 | Tool | Description |
 |------|-------------|
@@ -82,7 +82,7 @@ Installed the **HashiCorp Terraform Extension** in Visual Studio Code for:
 
 #### Terraform Version && Terraform Help
 
-![Terraform Version & Help ](Day-01/images/0.png)
+![Terraform Version & Help](images/0.png)
 
 #### Terraform Help
 
