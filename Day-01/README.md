@@ -12,7 +12,7 @@ On Day 1, I learned the fundamentals of **Infrastructure as Code (IaC)** and **T
 
 ---
 
-# 📌 Task 1: Understanding Infrastructure as Code (IaC)
+# 🎯 Task 1: Understanding Infrastructure as Code (IaC)
 
 ## What is Infrastructure as Code (IaC)?
 
@@ -56,15 +56,17 @@ Terraform is an open-source Infrastructure as Code (IaC) tool developed by Hashi
 
 ---
 
-# 📌 Task 2: Install Terraform
+# 🎯 Task 2: Install Terraform
 
 Installed the latest Terraform CLI and verified the installation.
+Installed Terraform v1.15.x
 
+official docs for install -- https://developer.hashicorp.com/terraform/install
 ### Commands
 
 ```bash
-terraform version
-terraform -help
+terraform --version
+terraform --help
 ```
 
 Installed the **HashiCorp Terraform Extension** in Visual Studio Code for:
@@ -78,9 +80,9 @@ Installed the **HashiCorp Terraform Extension** in Visual Studio Code for:
 
 ### Installation Verification
 
-#### Terraform Version
+#### Terraform Version && Terraform Help
 
-![Terraform Version](images/01-terraform-version.png)
+![Terraform Version & Help ](Day-01/images/0.png)
 
 #### Terraform Help
 
@@ -92,7 +94,7 @@ Installed the **HashiCorp Terraform Extension** in Visual Studio Code for:
 
 ---
 
-# 📌 Task 3: Learn Core Terraform Concepts
+# 🎯 Task 3: Learn Core Terraform Concepts
 
 | Concept | Description |
 |----------|-------------|
@@ -105,7 +107,7 @@ Installed the **HashiCorp Terraform Extension** in Visual Studio Code for:
 
 ---
 
-# 📌 Task 4: First Terraform Project
+# 🎯 Task 4: First Terraform Project
 
 Created a simple Terraform project using the **Local** and **Random** providers to understand the Terraform lifecycle without requiring any cloud account.
 
