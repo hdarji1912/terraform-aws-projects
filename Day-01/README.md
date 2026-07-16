@@ -31,16 +31,25 @@ Infrastructure as Code (IaC) is the practice of provisioning and managing infras
 
 ## What is Terraform?
 
-Terraform is an open-source Infrastructure as Code (IaC) tool developed by HashiCorp. It uses HashiCorp Configuration Language (HCL) to provision and manage infrastructure across multiple cloud providers and services through a declarative approach.
 
-### Key Features
+Terraform is an **Infrastructure as Code (IaC)** tool developed by **HashiCorp**.
 
-- Multi-cloud support
-- Declarative Infrastructure as Code
-- Infrastructure automation
-- State management
-- Reusable modules
-- Execution planning before deployment
+It allows developers and DevOps engineers to define infrastructure using a declarative language called **HCL (HashiCorp Configuration Language)**.
+
+Terraform automatically figures out the changes required to reach the desired state of the infrastructure.
+
+Unlike many cloud-specific tools, Terraform works across multiple platforms such as:
+
+- AWS
+- Azure
+- Google Cloud
+- Kubernetes
+- Docker
+- GitHub
+- Cloudflare
+- DigitalOcean
+- VMware
+- Many more...
 
 ---
 
@@ -82,28 +91,27 @@ Installed the **HashiCorp Terraform Extension** in Visual Studio Code for:
 
 #### Terraform Version && Terraform Help
 
-![Terraform Version & Help](images/0.png)
-
-#### Terraform Help
-
-![Terraform Help](images/02-terraform-help.png)
+![Terraform Version & Help](images/1.png)
+---
 
 #### VS Code Extension
 
-![VS Code Extension](images/03-vscode-extension.png)
+Installed the **HashiCorp Terraform** extension in VS Code for:
+
+- Syntax highlighting
+- Auto-completion
+- HCL language support
+- Error diagnostics
+- Code formatting
+- Resource navigation
+
+![VS Code Extension](images/2.png)
 
 ---
 
 # 🎯 Task 3: Learn Core Terraform Concepts
 
-| Concept | Description |
-|----------|-------------|
-| **Provider** | Plugin that allows Terraform to interact with cloud providers or services. |
-| **Resource** | Infrastructure object managed by Terraform. |
-| **State** | File that stores the current state of managed infrastructure. |
-| **Plan** | Preview of infrastructure changes before deployment. |
-| **HCL** | HashiCorp Configuration Language used to write Terraform configuration. |
-| **Module** | Reusable collection of Terraform resources. |
+
 
 ---
 
