@@ -111,7 +111,156 @@ Installed the **HashiCorp Terraform** extension in VS Code for:
 
 # 🎯 Task 3: Learn Core Terraform Concepts
 
+# 📘 Important Terraform Terminologies
 
+Understanding these core Terraform concepts is essential for building, managing, and automating infrastructure effectively.
+
+---
+
+## 1️⃣ Provider
+
+A **Provider** is a plugin that allows Terraform to interact with external platforms, cloud providers, or services. Providers act as the bridge between Terraform and the infrastructure you want to manage.
+
+### Common Providers
+
+- AWS
+- Microsoft Azure
+- Google Cloud Platform (GCP)
+- Docker
+- Kubernetes
+- GitHub
+- Local
+- Random
+
+### Example
+
+```hcl
+provider "aws" {
+  region = "ap-south-1"
+}
+```
+
+---
+
+## 2️⃣ Resource
+
+A **Resource** is the fundamental building block in Terraform. It represents an infrastructure component that Terraform creates, updates, or deletes.
+
+### Examples
+
+- EC2 Instance
+- S3 Bucket
+- Virtual Machine
+- Docker Container
+- Local File
+- Security Group
+
+### Example
+
+```hcl
+resource "local_file" "example" {
+  filename = "hello.txt"
+  content  = "Hello Terraform"
+}
+```
+
+---
+
+## 3️⃣ State
+
+Terraform stores information about the infrastructure it manages in a **State File** named:
+
+```text
+terraform.tfstate
+```
+
+The state file keeps track of existing resources so Terraform can compare the current infrastructure with the desired configuration.
+
+### Purpose
+
+- Tracks managed infrastructure
+- Maps configuration to real resources
+- Detects infrastructure changes
+- Enables incremental updates
+
+---
+
+## 4️⃣ Plan
+
+Before making any infrastructure changes, Terraform creates an **Execution Plan** that previews what actions will be performed.
+
+The plan helps you review changes before applying them.
+
+### The Plan Shows
+
+- Resources to be created
+- Resources to be modified
+- Resources to be replaced
+- Resources to be destroyed
+
+### Command
+
+```bash
+terraform plan
+```
+
+---
+
+## 5️⃣ HCL (HashiCorp Configuration Language)
+
+**HCL** is Terraform's declarative configuration language used to define infrastructure.
+
+It is designed to be:
+
+- Human-readable
+- Easy to write
+- Easy to maintain
+
+Terraform configuration files use the **`.tf`** extension.
+
+### Example
+
+```hcl
+resource "random_pet" "name" {
+  length = 2
+}
+```
+
+---
+
+## 6️⃣ Module
+
+A **Module** is a reusable collection of Terraform configuration files that groups related resources together.
+
+Modules help reduce code duplication and improve maintainability.
+
+### Benefits
+
+- Reusable code
+- Better project organization
+- Easier maintenance
+- Standardized infrastructure
+
+### Example
+
+```hcl
+module "network" {
+  source = "./modules/network"
+}
+```
+
+---
+
+## 📋 Quick Summary
+
+| Terminology | Description |
+|-------------|-------------|
+| **Provider** | Plugin that enables Terraform to communicate with cloud providers and services. |
+| **Resource** | Infrastructure object managed by Terraform. |
+| **State** | File that stores the current state of managed infrastructure. |
+| **Plan** | Preview of infrastructure changes before deployment. |
+| **HCL** | HashiCorp Configuration Language used to write Terraform configurations. |
+| **Module** | Reusable collection of Terraform configuration files. |
 
 ---
 
@@ -121,70 +270,145 @@ Created a simple Terraform project using the **Local** and **Random** providers 
 
 ---
 
-## Terraform Workflow
+# 🔄 Terraform Workflow
 
-| Step | Command | Purpose |
-|------|---------|---------|
-| 1 | `terraform init` | Initialize the working directory and download providers |
-| 2 | `terraform fmt` | Format Terraform configuration |
-| 3 | `terraform validate` | Validate configuration syntax |
-| 4 | `terraform plan` | Preview infrastructure changes |
-| 5 | `terraform apply` | Create infrastructure resources |
-| 6 | `terraform output` | Display output values |
-| 7 | `cat greeting.txt` | Verify generated local file |
-| 8 | `terraform destroy` | Remove created resources |
+Terraform follows a structured workflow to provision and manage infrastructure safely and efficiently.
 
----
-
-## Step 1 – Terraform Initialization
-
-![Terraform Init](images/04-init.png)
-
----
-
-## Step 2 – Format & Validate Configuration
-
-![Terraform Format and Validate](images/05-fmt-validate.png)
-
----
-
-## Step 3 – Preview Infrastructure Changes
-
-![Terraform Plan](images/06-plan.png)
-
----
-
-## Step 4 – Apply Configuration
-
-![Terraform Apply](images/07-apply.png)
+```text
+Write Configuration (.tf)
+        │
+        ▼
+terraform init
+        │
+        ▼
+terraform fmt
+        │
+        ▼
+terraform validate
+        │
+        ▼
+terraform plan
+        │
+        ▼
+terraform apply
+        │
+        ▼
+Verify Infrastructure
+(terraform output)
+        │
+        ▼
+terraform destroy
+```
 
 ---
 
-## Step 5 – Verify Outputs
+## 📖 Workflow Explanation
 
-![Terraform Output](images/08-output.png)
+### 1️⃣ Write Configuration
+
+Create Terraform configuration files (`.tf`) to define your infrastructure using **HashiCorp Configuration Language (HCL)**.
+
+---
+
+### 2️⃣ Initialize Terraform
+
+Downloads the required providers and initializes the working directory.
+
+```bash
+terraform init
+```
+### Screenshot
+
+![Terraform Init](images/9.png)
 
 ---
 
-## Step 6 – Destroy Resources
+### 3️⃣ Format Configuration
 
-![Terraform Destroy](images/09-destroy.png)
+Formats Terraform files according to standard HCL style.
+
+```bash
+terraform fmt
+```
 
 ---
+
+### 4️⃣ Validate Configuration
+
+Checks the configuration for syntax errors and validates its correctness.
+
+```bash
+terraform validate
+```
+### Screenshot
+
+![Terraform Validate](images/10.png)
+
+---
+
+### 5️⃣ Preview Changes
+
+Generates an execution plan showing what Terraform will create, modify, or destroy.
+
+```bash
+terraform plan
+```
+### Screenshot
+
+![Terraform Plan](images/11.png)
+
+---
+
+### 6️⃣ Apply Configuration
+
+Creates or updates infrastructure based on the execution plan.
+
+```bash
+terraform apply
+```
+### Screenshot
+
+![Terraform Apply](images/12.png)
+---
+
+### 7️⃣ Verify Outputs
+
+Displays the output values defined in the Terraform configuration.
+
+```bash
+cat greetings.txt
+```
+### Screenshot
+
+![Greeting File](images/13.png)
+
+---
+
+### 8️⃣ Destroy Infrastructure
+
+Removes all resources created by Terraform.
+
+```bash
+terraform destroy
+```
+### Screenshot
+
+![Terraform Destroy](images/14.png)
+---
+
 
 # 🎯 Learning Outcomes
 
-After completing this lab, I learned how to:
+By the end of Day 1, I was able to:
 
-- Understand Infrastructure as Code concepts
-- Write basic Terraform configuration files
-- Initialize Terraform providers
-- Format and validate Terraform code
-- Preview infrastructure changes safely
-- Provision resources using Terraform
-- View Terraform outputs
-- Destroy infrastructure when no longer needed
-- Understand Terraform state management
+- Understand what Infrastructure as Code (IaC) is.
+- Learn why Terraform is one of the most popular IaC tools.
+- Install and configure Terraform.
+- Understand the Terraform workflow.
+- Learn important Terraform terminologies.
+- Provision my first infrastructure locally.
+- Destroy the infrastructure safely.
+- Explore OpenTofu and Terraform Lock File.
 
 ---
 
@@ -208,7 +432,7 @@ Verified Terraform CLI autocomplete.
 terraform -install-autocomplete
 ```
 
-![Terraform Autocomplete](images/10-autocomplete.png)
+![Terraform Autocomplete](images/15.png)
 
 ---
 
@@ -239,7 +463,11 @@ tofu apply
 tofu destroy
 ```
 
-![OpenTofu](images/11-opentofu.png)
+![OpenTofu init](images/16.png)
+![OpenTofu plan](images/17.png)
+![OpenTofu apply ](images/18.png)
+![OpenTofu destroy ](images/19.png)
+
 
 ---
 
@@ -255,50 +483,37 @@ Explored the `.terraform.lock.hcl` file generated during initialization.
 - Maintains provider consistency
 - Improves security
 
-![Terraform Lock File](images/12-lock-file.png)
+
 
 ---
 
 # 📂 Repository Structure
 
-```text
-.
-├── example/
-│   ├── main.tf
-│   ├── outputs.tf
-│   ├── providers.tf
-│   ├── variables.tf
-│   └── terraform.tfvars
-├── images/
-├── README.md
-└── .terraform.lock.hcl
+```
+terraform-aws-projects/
+│
+├── Day-01/
+│   ├── README.md
+│   ├── code/
+│   └── images/
+│
+├── Day-02/
+├── Day-03/
+└── ...
 ```
 
----
-
-# 🛠️ Technologies Used
-
-- Terraform
-- OpenTofu
-- HashiCorp Configuration Language (HCL)
-- Visual Studio Code
-- Linux (Ubuntu)
-- Git
-- GitHub
 
 ---
 
-# 🚀 Key Takeaways
+---
+# 🚀 Conclusion
 
-- Learned the fundamentals of Infrastructure as Code (IaC).
-- Understood Terraform architecture and workflow.
-- Installed and configured Terraform CLI.
-- Created infrastructure using Terraform.
-- Executed the complete Terraform lifecycle.
-- Explored OpenTofu as an open-source alternative.
-- Understood the purpose of `.terraform.lock.hcl`.
-- Gained practical experience with Terraform commands and best practices.
+Successfully completed the fundamentals of Terraform and Infrastructure as Code (IaC), including the complete Terraform workflow and OpenTofu basics. This marks the first step toward building scalable and automated cloud infrastructure.
 
+---
+# 🏷️ Tags
+
+#TrainWithShubham #TerraWeekChallenge
 ---
 
 ## ⭐ If you found this project helpful, feel free to star the repository!
